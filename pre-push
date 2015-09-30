@@ -7,15 +7,18 @@ STDIN.reopen('/dev/tty')
 
 current_branch = %x|git rev-parse --abbrev-ref HEAD|.chomp
 receiving_remote = ARGV[0]
+receiving_branch = current_branch
 
 p "CURRENT BRANCH: #{current_branch}"
 p "RECEIVING REMOTE: #{receiving_remote}"
 
 p ARGV[1]
 
-say("Please complete this checklist before pushing #{current_branch} to #{ARGV[0]}")
-ask("<%= color('1.', BOLD) %> Third-party code review completed?") { |q| q.default = 'no' }
-ask("<%= color('2.', BOLD) %> Interactively rebased with recently <%= color('fetched', BOLD) %> master?") { |q| q.default = 'no' }
-ask("<%= color('3.', BOLD) %> CHANGELOG file updated?") { |q| q.default = 'no' }
-ask("<%= color('4.', BOLD) %> All specs passing?") { |q| q.default = 'no' }
-ask("<%= color('5.', BOLD) %> All in-house gems using correct source, branch or version?") { |q| q.default = 'no' }
+if receiving_branch == "master"
+  say("Please complete this checklist before pushing #{current_branch} to #{receiving_remote}")
+  ask("<%= color('1.', BOLD) %> Third-party code review completed?") { |q| q.default = 'no' }
+  ask("<%= color('2.', BOLD) %> Interactively rebased with recently <%= color('fetched', BOLD) %> master?") { |q| q.default = 'no' }
+  ask("<%= color('3.', BOLD) %> CHANGELOG file updated?") { |q| q.default = 'no' }
+  ask("<%= color('4.', BOLD) %> All specs passing?") { |q| q.default = 'no' }
+  ask("<%= color('5.', BOLD) %> All in-house gems using correct source, branch or version?") { |q| q.default = 'no' }
+end
