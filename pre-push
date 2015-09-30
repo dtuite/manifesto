@@ -2,12 +2,18 @@
 
 require "highline/import"
 
-puts ARGV[0]
-puts ARGV[1]
-
+# INFO: http://stackoverflow.com/a/10015707/574190
 STDIN.reopen('/dev/tty')
 
-say("Please complete this 3 step checklist before pushing to #{ARGV[0]}")
+current_branch = %x|git rev-parse --abbrev-ref HEAD|.chomp
+receiving_remote = ARGV[0]
+
+p "CURRENT BRANCH: #{current_branch}"
+p "RECEIVING REMOTE: #{receiving_remote}"
+
+p ARGV[1]
+
+say("Please complete this checklist before pushing #{current_branch} to #{ARGV[0]}")
 ask("<%= color('1.', BOLD) %> Third-party code review completed?") { |q| q.default = 'no' }
 ask("<%= color('2.', BOLD) %> Interactively rebased with recently <%= color('fetched', BOLD) %> master?") { |q| q.default = 'no' }
 ask("<%= color('3.', BOLD) %> CHANGELOG file updated?") { |q| q.default = 'no' }
