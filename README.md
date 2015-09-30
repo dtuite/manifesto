@@ -2,4 +2,4 @@
 
 A checklist to run through before pushing to origin/master.
 
-Something
+![Demo](http://g.recordit.co/tSFFeVSnic.gif)
