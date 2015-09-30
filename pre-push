@@ -9,10 +9,15 @@ current_branch = %x|git rev-parse --abbrev-ref HEAD|.chomp
 receiving_remote = ARGV[0]
 receiving_branch = current_branch
 
-p "CURRENT BRANCH: #{current_branch}"
-p "RECEIVING REMOTE: #{receiving_remote}"
+# p "CURRENT BRANCH: #{current_branch}"
+# p "RECEIVING REMOTE: #{receiving_remote}"
+#
+# (0..5).each do |i|
+#   p "ARGV #{i}: #{ARGV[i]}"
+# end
 
-p ARGV[1]
+# TODO: Figure out how to get the name of the destination branch as described
+# here: http://stackoverflow.com/a/20047273/574190
 
 if receiving_branch == "master"
   say("Please complete this checklist before pushing #{current_branch} to #{receiving_remote}")
